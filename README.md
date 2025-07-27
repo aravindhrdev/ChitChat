@@ -77,13 +77,13 @@ docker run -p 6379:6379 -d redis
 
 ## 📁 Project Structure
 
-secure_journal_app/
-├── chat/                   # Chat app with routing and consumers
-├── secure_journal_app/     # Main Django project settings
-├── templates/              # HTML templates
-├── static/                 # Static files (CSS, JS)
-├── manage.py               # Django CLI entry
-├── requirements.txt        # Python dependencies
+ChitChat/  
+├── chat/                   # Chat app with routing and consumers  
+├── secure_journal_app/     # Main Django project settings  
+├── templates/              # HTML templates  
+├── static/                 # Static files (CSS, JS)  
+├── manage.py               # Django CLI entry  
+├── requirements.txt        # Python dependencies  
 
 ## 📜 License
 This project is open-source and available under the MIT License.
