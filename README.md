@@ -1,4 +1,4 @@
-# 🟢 Real-Time Chat App with Django, WebSocket, and Redis
+# 🟢 Chit Chat - A Real-Time Chat App with Django, WebSocket, and Redis
 
 A simple and practical real-time chat application built using Django, Django Channels, WebSockets, and Redis. This project demonstrates how to implement bi-directional communication between users using asynchronous technologies in Django.
 
