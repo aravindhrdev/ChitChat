@@ -1,0 +1,24 @@
+### 🛡️ `.gitignore`
+
+```gitignore
+# Ambiente virtual
+venv/
+ENV/
+env/
+
+# Arquivos temporários
+*.pyc
+__pycache__/
+
+# Configurações locais
+*.sqlite3
+*.log
+.DS_Store
+*.env
+.env
+
+# VSCode
+.vscode/
+
+# Docker
+*.pid

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat em Tempo Real</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    #chat-log {
+      height: 400px;
+      overflow-y: auto;
+      background-color: #f8f9fa;
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    .message.received {
+      text-align: left;
+    }
+    .message.sent {
+      text-align: right;
+    }
+    .message p {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      margin: 0.2rem;
+      max-width: 70%;
+    }
+    .received p {
+      background-color: #e9ecef;
+    }
+    .sent p {
+      background-color: #cfe2ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <h3 class="text-center">Sala: geral</h3>
+    <div id="chat-log"></div>
+    <div class="d-flex mt-3">
+      <textarea id="chat-message-input" class="form-control me-2" rows="2" placeholder="Digite sua mensagem..."></textarea>
+      <button id="chat-message-submit" class="btn btn-primary">Enviar</button>
+    </div>
+  </div>
+
+  <script>
+    const roomName = "geral";
+    const chatLog = document.querySelector('#chat-log');
+    const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/chat/' + roomName + '/');
+
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        const div = document.createElement('div');
+        div.className = 'message received';
+        div.innerHTML = `<p>👤 ${data.message}</p>`;
+        chatLog.appendChild(div);
+        chatLog.scrollTop = chatLog.scrollHeight;
+    };
+
+    document.querySelector('#chat-message-submit').onclick = function(e) {
+        const input = document.querySelector('#chat-message-input');
+        const message = input.value.trim();
+        if (message && chatSocket.readyState === WebSocket.OPEN) {
+            chatSocket.send(JSON.stringify({ 'message': message }));
+            const div = document.createElement('div');
+            div.className = 'message sent';
+            div.innerHTML = `<p>🙋‍♂️ ${message}</p>`;
+            chatLog.appendChild(div);
+            chatLog.scrollTop = chatLog.scrollHeight;
+            input.value = '';
+        } else if (chatSocket.readyState !== WebSocket.OPEN) {
+            alert("Conexão com o WebSocket não está aberta.");
+        }
+    };
+  </script>
+</body>
+</html>
